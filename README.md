@@ -1,2 +1,2 @@
 # Robotics-Code-IO-Extender
-Uses a Arduino Nano as IO Extender for a ESP32
+Uses an Atmega328p as IO Extender and Sensor Expansion board to isolate I2C Lines
