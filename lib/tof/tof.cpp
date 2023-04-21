@@ -17,7 +17,7 @@ tof::tof(int sensor_type, int offset_x, int offset_y, int offset_a, int xshut)
         vl6180x_sensor = new Adafruit_VL6180X();
 }
 
-void tof::init()
+void tof::init_xshut()
 {
     if (_xshut != -1) 
     {
@@ -32,7 +32,7 @@ void tof::enable(bool enabled) {
         _error = TOF_ERROR_NOT_ENABLED; 
 }
 
-void tof::begin(uint8_t address)
+void tof::init(uint8_t address)
 {
     if (_enabled)
     {

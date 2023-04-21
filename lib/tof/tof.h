@@ -27,8 +27,8 @@ class tof {
         };
 
         tof(int sensor_type, int offset_x, int offset_y, int offset_a, int xshut = -1);
-        void init();
-        void begin(uint8_t address = 0b0101001);
+        void init_xshut();
+        void init(uint8_t address = 0b0101001);
         void enable(bool enabled);
         void setLongRangeMode(bool mode);
         void setHighAccuracy(bool mode);
@@ -56,11 +56,11 @@ class tof {
         int _offset_x = 0;
         int _offset_y = 0;
         int _offset_a = 0;
-    private:
+
         VL53L0X* vl53l0x_sensor;
         VL53L1X* vl53l1x_sensor;
         Adafruit_VL6180X* vl6180x_sensor;
-
+    private:
         int _sensor_type;
 
         bool _long_range = false;
