@@ -2,7 +2,10 @@
 
 // TODO: Change this to the correct Pin Numbers
 #define PIN_PORTA 4
-#define PIN_PORTB 5
-#define PIN_PORTC 6
-#define PIN_PORTD 7
+#define PIN_PORTB 3
+#define PIN_PORTC 2
+#define PIN_PORTD 5
 
+#define TASTER_FRONT A1
+#define TASTER_BACK_LEFT A2
+#define TASTER_BACK_RIGHT A3
