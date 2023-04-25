@@ -52,6 +52,7 @@ bool accel_init_success = false;
 void accel_init();
 void accel_tick();
 
+void init_tx();
 void print_tx();
 
 void wire_on_receive(int num_bytes);
@@ -67,9 +68,13 @@ void setup() {
 
     accel_init();
 
+    init_tx();
+
     Wire1.begin(0x09);
     Wire1.onReceive(wire_on_receive);
     Wire1.onRequest(wire_on_request);
+
+    Serial.println("Setup Complete!");
 }
 
 void loop()
@@ -225,10 +230,16 @@ void accel_tick()
     }
 }
 
-
+void init_tx()
+{
+    tx.accel_value = 0.0;
+    tx.claw_tof_value = 65535;
+    tx.claw_tof_error = TOF_ERROR_NOT_ENABLED;
+    tx.taster_values = 0;
+}
 void print_tx()
 {
-    if (Serial.available() > 0)
+    if (Serial.available())
     {
         uint8_t value = tx.taster_values;
         bool _fl_state = (value >> 3) & 0x01;
