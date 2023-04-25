@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #include "Wire.h"
 #include "Wire1.h"
 
@@ -19,7 +17,7 @@
 accel accel_sens;
 float accel_value;
 
-tof claw_tof(TOF_SENSOR_VL6180X, 0, 0, 0, PIN_PORTA);
+tof claw_tof(TOF_SENSOR_VL6180X, 0, 0, 0, PIN_PORTB);
 uint16_t claw_tof_value;
 tof::tof_error_types claw_tof_error;
 
@@ -57,6 +55,8 @@ void setup()
     claw_tof.init_xshut();
     claw_tof.holdReset();
 
+    logln("After claw_tof_xshut_init");
+
     delay(5);
 
 
@@ -64,7 +64,11 @@ void setup()
     scan_i2c_addresses();
     print_i2c_addresses();
 
+    logln("After i2c_addresses");
+
     accel_sens.enable(check_device_enabled(I2C_ADDRESS_ACCELEROMETER, "accelerometer", "AC"));
+
+    logln("After accel");
 
     
     // Init Sensors
