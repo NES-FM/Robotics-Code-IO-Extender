@@ -16,6 +16,8 @@ MPU6050 accel = MPU6050(Wire);
 #define TASTER_BACK_RIGHT A1
 #define TASTER_BACK_LEFT A2
 
+unsigned long last_tof_measurement_millis = 0;
+
 #pragma pack(1)
 struct send_struct
 {
@@ -75,6 +77,8 @@ void setup() {
     Wire1.onRequest(wire_on_request);
 
     Serial.println("Setup Complete!");
+
+    last_tof_measurement_millis = millis();
 }
 
 void loop()
@@ -160,6 +164,17 @@ void tof_claw_tick()
 
         tx.claw_tof_value = range;
         tx.claw_tof_error = _error;
+
+		last_tof_measurement_millis = millis();
+    }
+	else if (tof_claw_init_success && (millis() - last_tof_measurement_millis) > 1000)
+	{
+		Serial.println("TOF NO LONGER RESPONDING! -> RESTARTING!");
+		tof_claw_init_success = false;
+	}
+    else if (!tof_claw_init_success)
+    {
+        tof_claw_init();
     }
 }
 
